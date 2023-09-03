@@ -4,8 +4,11 @@ Welcome to my collection of Python security projects! This repository showcases 
 
 ## 🌟 **Projects Contained**
 
-- **Network Scanner**: A Python-based tool that identifies devices on your local network using the `scapy` library.
-    - [🔗 Go to project](./NetworkScanner)
+- **Network Scanner**: A script that identifies devices on your local network using the `scapy` library.
+   - [🔗 Go to project](./NetworkScanner)
+    
+- **Port Scanner**: A script that checks for open ports on a target server or IP address using the built-in `socket` library.
+   - [🔗 Go to project](./PortScanner)
 
 ## 🛠 **Setup**
 

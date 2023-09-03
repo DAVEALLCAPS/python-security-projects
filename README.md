@@ -10,6 +10,9 @@ Welcome to my collection of Python security projects! This repository showcases 
 - **Port Scanner**: A script that checks for open ports on a target server or IP address using the built-in `socket` library.
    - [🔗 Go to project](./PortScanner)
 
+- **File Checker**: A script to check and compare checksums of a file with a number of algorithms (md5, sha1, sha256, sha512) using the built-in `hashlib` library.
+   - [🔗 Go to project](./FileChecker)
+
 ## 🛠 **Setup**
 
 1. Clone this repository:

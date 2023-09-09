@@ -13,6 +13,9 @@ Welcome to my collection of Python security projects! This repository showcases 
 - **File Checker**: A script to check and compare checksums of a file with a number of algorithms (md5, sha1, sha256, sha512) using the built-in `hashlib` library.
    - [🔗 Go to project](./FileChecker)
 
+- **StegaImage**: Hide your secrets in plain sight, or a PNG.
+   - [🔗 Go to project](./StegaImage)
+
 ## 🛠 **Setup**
 
 1. Clone this repository:

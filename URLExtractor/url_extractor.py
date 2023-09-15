@@ -1,18 +1,17 @@
 import requests 
 from bs4 import BeautifulSoup 
 
-# TODO: Need to implement dupe removal for links.
-
 def get_links(url):
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'lxml')
 
-    links = []
+    links = set()  # Initialize as a set
     for link in soup.find_all('a', href=True):
-        if link['href'].startswith('http'):
-            links.append(link['href'])
+        href = link['href']
+        if href.startswith('http'):
+            links.add(href)  # Add URL to the set
         else:
-            links.append(url + link['href'])
+            links.add(url + href)  # Add URL to the set
     return links
 
 if __name__ == "__main__" : 

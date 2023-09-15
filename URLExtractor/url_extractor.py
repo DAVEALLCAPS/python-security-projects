@@ -2,38 +2,58 @@ import requests
 from bs4 import BeautifulSoup 
 from urllib.parse import urlparse
 from collections import Counter
+from urllib.parse import urljoin
+import logging
 
-def get_links(url):
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+MAX_DEPTH = 2
+
+def get_links_recursive(url, base_domain, depth=0, visited=None):
+    if visited is None:
+        visited = set()
+    
+    logging.info(f"Crawling URL: {url} at depth: {depth}")
+    
+    if url in visited:
+        logging.debug(f"URL already visited: {url}")
+        return set()
+    if depth > MAX_DEPTH:
+        logging.debug(f"Max depth reached: {url} at depth {depth}")
+        return set()
+    
+    visited.add(url)
+    
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'lxml')
-
     links = set()
+
     for link in soup.find_all('a', href=True):
         href = link['href']
-        if href.startswith('http'):
-            links.add(href)
-        else:
-            links.add(url + href)
+        full_link = urljoin(url, href)
+        domain = urlparse(full_link).netloc
+
+        if base_domain in domain:
+            links.add(full_link)
+            if full_link not in visited:
+                logging.debug(f"Adding link to crawl: {full_link}")
+                links.update(get_links_recursive(full_link, base_domain, depth+1, visited))
+            else:
+                logging.debug(f"Link already visited: {full_link}")
+
     return links
 
 def summarize_links(links):
-    # Styling constants
     SEPARATOR = "-" * 75
     HEADER = "LINK SUMMARY"
     FOOTER = "=" * 75
 
-    # Total number of links
     total_links = len(links)
-
-    # HTTP vs HTTPS count
     http_count = sum(1 for link in links if link.startswith('http://'))
     https_count = sum(1 for link in links if link.startswith('https://'))
 
-    # Most common domain
     domains = [urlparse(link).netloc for link in links]
     most_common_domain = Counter(domains).most_common(1)[0]
-
-    # Unique domains
     unique_domains = sorted(set(domains))
     domain_count = len(unique_domains)
 
@@ -49,13 +69,14 @@ def summarize_links(links):
         print(domain)
     print(FOOTER)
 
-if __name__ == "__main__" : 
-    url = input("Enter URL: ")
-    if 'http' not in url: 
+if __name__ == "__main__": 
+    url = input("Enter URL: ").strip()
+    if not url.startswith(('http://', 'https://')):
         url = 'http://' + url 
-    links = get_links(url)
 
-    # Save to file
+    base_domain = urlparse(url).netloc
+    links = get_links_recursive(url, base_domain)
+
     with open('extracted_links.txt', 'w') as f:
         for link in links:
             f.write(link + '\n')

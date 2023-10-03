@@ -4,17 +4,12 @@ Welcome to my collection of Python security projects! This repository showcases 
 
 ## 🌟 **Projects Contained**
 
-- **Network Scanner**: A script that identifies devices on your local network using the `scapy` library.
-   - [🔗 Go to project](./NetworkScanner)
-    
-- **Port Scanner**: A script that checks for open ports on a target server or IP address using the built-in `socket` library.
-   - [🔗 Go to project](./PortScanner)
-
-- **File Checker**: A script to check and compare checksums of a file with a number of algorithms (md5, sha1, sha256, sha512) using the built-in `hashlib` library.
-   - [🔗 Go to project](./FileChecker)
-
-- **StegaImage**: Hide your secrets in plain sight, or a PNG.
-   - [🔗 Go to project](./StegaImage)
+- [FileChecker](./FileChecker): A utility for checking file hashes to verify their integrity.
+- [Keylogger](./Keylogger): A simple keylogger tool.
+- [NetworkScanner](./NetworkScanner): A tool that scans the local network to grab IP and MAC addresses of connected devices.
+- [PortScanner](./PortScanner): A utility for scanning network ports to identify open services and potential vulnerabilities.
+- [StegaImage](./StegaImage): A project focused on image steganography for embedding and extracting data within images.
+- [URLExtractor](./URLExtractor): A web-crawling tool that extracts and lists URLs, with the capability for recursive crawling through linked pages.
 
 ## 🛠 **Setup**
 
